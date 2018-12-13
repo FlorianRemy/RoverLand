@@ -1,0 +1,6 @@
+[package]
+name = "api_soft"
+version = "0.1.0"
+authors = ["FlorianRemy <florian.remy@protonmail.com>"]
+
+[dependencies]
