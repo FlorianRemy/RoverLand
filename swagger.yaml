@@ -30,7 +30,7 @@ paths:
         '200':
           description: Successfull (OK)
           schema:
-            $ref: "#/definitions/ElementList"
+            $ref: '#/definitions/ElementList'
         '404':
           description: URL not found (NOK)
   /addToCart:
@@ -44,11 +44,10 @@ paths:
       parameters:
         - name: body
           in: body
-          description:
-            "encapsulation of articleID to add and userID where to add"
+          description: encapsulation of articleID to add and userID where to add
           required: true
           schema:
-            $ref: "#/definitions/RefItemCart"
+            $ref: '#/definitions/RefItemCart'
       responses:
         '200':
           description: Successfull (OK)
@@ -58,7 +57,7 @@ paths:
           description: Not found (NOK)
         '422':
           description: Unprocessable entity (NOK)
-  /getCart/{userID}:
+  '/getCart/{userID}':
     get:
       tags:
         - Panier
@@ -77,7 +76,7 @@ paths:
         '200':
           description: Successfull (OK)
           schema:
-            $ref: "#/definitions/ElementList"
+            $ref: '#/definitions/ElementList'
         '404':
           description: Not found (NOK)
   /deleteAnnouncement:
@@ -91,11 +90,10 @@ paths:
       parameters:
         - name: body
           in: body
-          description:
-            "encapsulation of articleID to delete and userID where to delete"
+          description: encapsulation of articleID to delete and userID where to delete
           required: true
           schema:
-            $ref: "#/definitions/RefItemCart"
+            $ref: '#/definitions/RefItemCart'
       responses:
         '200':
           description: Successfull (OK)
@@ -105,7 +103,7 @@ paths:
           description: Not found (NOK)
         '422':
           description: Unprocessable entity (NOK)
-  /getCartAmount/{userID}:
+  '/getCartAmount/{userID}':
     get:
       tags:
         - Panier
@@ -124,46 +122,42 @@ paths:
         '200':
           description: Successfull (OK)
           schema:
-            $ref: "#/definitions/CartAmount"
+            $ref: '#/definitions/CartAmount'
         '400':
           description: Unsuccessful (NOK)
-          
 definitions:
   ElementList:
-    type: "object"
+    type: object
     properties:
       element:
-        type: "array"
+        type: array
         items:
-          $ref: "#/definitions/Element"
-        
+          $ref: '#/definitions/Element'
   Element:
-    type: "object"
+    type: object
     properties:
       id:
-        type: "integer"
-        format: "int32"
+        type: integer
+        format: int32
       nom:
-        type: "string"
+        type: string
       description:
-        type: "string"
+        type: string
       prix:
-        type: "integer"
-        format: "int32"
-        
+        type: integer
+        format: int32
   RefItemCart:
-    type: "object"
+    type: object
     properties:
       id_article:
-        type: "integer"
-        format: "int32"
+        type: integer
+        format: int32
       id_user:
-        type: "integer"
-        format: "int32"
-  
+        type: integer
+        format: int32
   CartAmount:
-    type: "object"
+    type: object
     properties:
-      amout:
-        type: "integer"
-        format: "int32"
+      amount:
+        type: integer
+        format: int32
