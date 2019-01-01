@@ -1,0 +1,121 @@
+swagger: "2.0"
+info:
+  description: "API REST (RUST) pour l'application RoverLand."
+  version: "1.0.0"
+  title: "RoverLand"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "karim.elgharbi@etu.univ-tours.fr"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "petstore.swagger.io"
+basePath: "/v2"
+tags:
+- name: "Rover"
+  description: "Accès à la liste des annonces et ajout au panier"
+- name: "Panier"
+  description: "Accès au panier de l'utilisateur et modification (ajout / suppression)"
+schemes:
+- "https"
+- "http"
+paths:
+  /getList:
+    get:
+      tags:
+      - "Rover"
+      summary: "Récupération de la liste des annonces"
+      description: ""
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "Successfull (OK)"
+        400:
+          description: "Unsuccessful (NOK)"
+  /addToCart:
+    post:
+      tags:
+      - "Rover"
+      summary: "Ajout au panier"
+      description: ""
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userID"
+        in: "path"
+        description: "ID of the user"
+        required: true
+        type: "integer"
+        format: "int"
+      responses:
+        200:
+          description: "Successfull (OK)"
+        400:
+          description: "Unsuccessful (NOK)"
+  /getCart:
+    get:
+      tags:
+      - "Panier"
+      summary: "Récupération des la liste des annonces contenues dans le panier"
+      description: ""
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userID"
+        in: "path"
+        description: "ID of the user"
+        required: true
+        type: "integer"
+        format: "int"
+      responses:
+        200:
+          description: "Successfull (OK)"
+        400:
+          description: "Unsuccessful (NOK)"
+  /deleteAnnouncement:
+    delete:
+      tags:
+      - "Panier"
+      summary: "Delete an announcement from the cart"
+      description: ""
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userID"
+        in: "path"
+        description: "ID of the user"
+        required: true
+        type: "integer"
+        format: "int"
+      - name: "indexOfArticleToDelete"
+        in: "path"
+        description: "Index of article to delete"
+        required: true
+        type: "integer"
+        format: "int"
+      responses:
+        200:
+          description: "Successfull (OK)"
+        400:
+          description: "Unsuccessful (NOK)"
+  /getCartAnnouncement:
+    get:
+      tags:
+      - "Panier"
+      summary: "Récupération des la liste des annonces contenues dans le panier"
+      description: ""
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userID"
+        in: "path"
+        description: "ID of the user"
+        required: true
+        type: "integer"
+        format: "int"
+      responses:
+        200:
+          description: "Successfull (OK)"
+        400:
+          description: "Unsuccessful (NOK)"
