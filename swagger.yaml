@@ -1,0 +1,163 @@
+swagger: '2.0'
+info:
+  description: API REST (RUST) pour l'application RoverLand.
+  version: 1.0.0
+  title: RoverLand
+  termsOfService: 'http://swagger.io/terms/'
+  contact:
+    email: karim.elgharbi@etu.univ-tours.fr
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+host: localhost
+tags:
+  - name: Rover
+    description: Accès à la liste des annonces et ajout au panier
+  - name: Panier
+    description: Accès au panier de l'utilisateur et modification (ajout / suppression)
+schemes:
+  - http
+paths:
+  /getList:
+    get:
+      tags:
+        - Rover
+      summary: Récupération de la liste des annonces
+      description: ''
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Successfull (OK)
+          schema:
+            $ref: '#/definitions/ElementList'
+        '404':
+          description: URL not found (NOK)
+  /addToCart:
+    post:
+      tags:
+        - Rover
+      summary: Ajout au panier
+      description: ''
+      consumes:
+        - application/json
+      parameters:
+        - name: body
+          in: body
+          description: encapsulation of articleID to add and userID where to add
+          required: true
+          schema:
+            $ref: '#/definitions/RefItemCart'
+      responses:
+        '200':
+          description: Successfull (OK)
+        '400':
+          description: Bad request (NOK)
+        '404':
+          description: Not found (NOK)
+        '422':
+          description: Unprocessable entity (NOK)
+  '/getCart/{userID}':
+    get:
+      tags:
+        - Panier
+      summary: Récupération des la liste des annonces contenues dans le panier
+      description: ''
+      produces:
+        - application/json
+      parameters:
+        - name: userID
+          in: path
+          description: ID of the user
+          required: true
+          type: integer
+          format: int
+      responses:
+        '200':
+          description: Successfull (OK)
+          schema:
+            $ref: '#/definitions/ElementList'
+        '404':
+          description: Not found (NOK)
+  /deleteAnnouncement:
+    delete:
+      tags:
+        - Panier
+      summary: Delete an announcement from the cart
+      description: ''
+      consumes:
+        - application/json
+      parameters:
+        - name: body
+          in: body
+          description: encapsulation of articleID to delete and userID where to delete
+          required: true
+          schema:
+            $ref: '#/definitions/RefItemCart'
+      responses:
+        '200':
+          description: Successfull (OK)
+        '400':
+          description: Bad request (NOK)
+        '404':
+          description: Not found (NOK)
+        '422':
+          description: Unprocessable entity (NOK)
+  '/getCartAmount/{userID}':
+    get:
+      tags:
+        - Panier
+      summary: Récupération des la liste des annonces contenues dans le panier
+      description: ''
+      produces:
+        - application/json
+      parameters:
+        - name: userID
+          in: path
+          description: ID of the user
+          required: true
+          type: integer
+          format: int
+      responses:
+        '200':
+          description: Successfull (OK)
+          schema:
+            $ref: '#/definitions/CartAmount'
+        '400':
+          description: Unsuccessful (NOK)
+definitions:
+  ElementList:
+    type: object
+    properties:
+      element:
+        type: array
+        items:
+          $ref: '#/definitions/Element'
+  Element:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int32
+      nom:
+        type: string
+      description:
+        type: string
+      prix:
+        type: integer
+        format: int32
+  RefItemCart:
+    type: object
+    properties:
+      id_article:
+        type: integer
+        format: int32
+      id_user:
+        type: integer
+        format: int32
+  CartAmount:
+    type: object
+    properties:
+      amount:
+        type: integer
+        format: int32
