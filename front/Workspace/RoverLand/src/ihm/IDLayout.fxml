@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.IDLayoutController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ihm.IDLayoutController">
    <children>
-      <GridPane layoutX="174.0" layoutY="89.0" prefHeight="176.0" prefWidth="251.0">
+      <GridPane layoutX="174.0" layoutY="137.0" prefHeight="176.0" prefWidth="251.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -36,6 +36,6 @@
             </Label>
          </children>
       </GridPane>
-      <Button fx:id="valid" layoutX="174.0" layoutY="289.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="251.0" text="VALIDER" />
+      <Button fx:id="valid" layoutX="174.0" layoutY="337.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="251.0" text="VALIDER" />
    </children>
 </AnchorPane>

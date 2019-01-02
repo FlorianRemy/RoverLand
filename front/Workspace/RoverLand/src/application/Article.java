@@ -1,47 +1,54 @@
 package application;
 
+import javafx.beans.property.*;
+
 public class Article {
-	private String articleImgFile;
-	private String articleName;
-	private String articleDescription;
-	private String articlePrice;
+	private StringProperty articleImgFile;
+	private StringProperty articleName;
+	private StringProperty articleDescription;
+	private StringProperty articlePrice;
 	
 	public Article(String articleImgFile, String articleName, String articleDescription, String articlePrice) {
-		this.articleImgFile = articleImgFile;
-		this.articleName = articleName;
-		this.articleDescription = articleDescription;
-		this.articlePrice = articlePrice;
+		this.articleImgFile = new SimpleStringProperty(articleImgFile);
+		this.articleName = new SimpleStringProperty(articleName);
+		this.articleDescription = new SimpleStringProperty(articleDescription);
+		this.articlePrice = new SimpleStringProperty(articlePrice);
+	}
+	
+	public String toString() {
+		String temp = this.articleName + ":" + this.articleDescription + ":" + this.articlePrice;
+		return temp;
 	}
 
-	public String getArticleImgFile() {
+	public StringProperty getArticleImgFile() {
 		return articleImgFile;
 	}
 
 	public void setArticleImgFile(String articleImgFile) {
-		this.articleImgFile = articleImgFile;
+		this.articleImgFile.set(articleImgFile);
 	}
 
-	public String getArticleName() {
+	public StringProperty getArticleName() {
 		return articleName;
 	}
 
 	public void setArticleName(String articleName) {
-		this.articleName = articleName;
+		this.articleName.set(articleName);
 	}
 
-	public String getArticleDescription() {
+	public StringProperty getArticleDescription() {
 		return articleDescription;
 	}
 
 	public void setArticleDescription(String articleDescription) {
-		this.articleDescription = articleDescription;
+		this.articleDescription.set(articleDescription);
 	}
 
-	public String getArticlePrice() {
+	public StringProperty getArticlePrice() {
 		return articlePrice;
 	}
 
 	public void setArticlePrice(String articlePrice) {
-		this.articlePrice = articlePrice;
+		this.articlePrice.set(articlePrice);
 	}
 }
