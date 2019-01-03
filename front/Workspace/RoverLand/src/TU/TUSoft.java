@@ -1,28 +1,36 @@
-import static org.junit.Assert.*;
+package TU;
 
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.FixMethodOrder;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.RepeatedTest;
-import org.junit.jupiter.api.TestReporter;
+import org.junit.runners.MethodSorters;
 
 import application.Article;
 import application.Site;
 import application.User;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-class TestsSoft {
-	Site RoverLand;
-	ObservableList<Article> testArticleList;
+@FixMethodOrder(MethodSorters.DEFAULT)
+class TUSoft {
+	static Site RoverLand;
+	static ObservableList<Article> testArticleList;
 	
-	Article article1;
-	Article article2;
-	Article article3;
+	static Article article1;
+	static Article article2;
+	static Article article3;
 	
-	User buyer;
+	static User buyer;
 	
 	@BeforeAll
-	public void initAll() {
+	@DisplayName("Initialization of tests variables")
+	static void setUpBeforeClass() throws Exception {
+		
+		testArticleList = FXCollections.observableArrayList();
+		
 		article1 = new Article("https://classicsworld.co.uk/wp-content/uploads/2017/09/Rover-75-2.0-CDT-CLUB-01-820x547.jpg","La belle Rover 75 n°1", "Belle auto, gros moteur", "3420");
 		article2 = new Article("https://www.autoscout24.fr/assets/auto/images/model/rover/rover-75/rover-75-l-01.jpg", "La belle Rover 75 n°2 " ,"Très puissante", "100000");
 		article3 = new Article("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY0Rf6DOhVqOgSCic9aaG8qplUcwLeqnpq4MsRetUS8CVus_FVIg","SuperClio", "C'est une clio, on sait pas ce qu'elle fout là", "5€");
@@ -34,31 +42,34 @@ class TestsSoft {
 		buyer = new User(1234);
 		
 		RoverLand = new Site(testArticleList);
+		RoverLand.setUser(buyer);
 	}
 	
-	@RepeatedTest(10)
+	@org.junit.jupiter.api.Test
 	@DisplayName("Add a new cart to the hashmap of the app")
-	public void testAddNewCart() {
+	public void test1() {
 		int targetNumberOfCartsAfter = RoverLand.getHmCart().size() + 1;
 		RoverLand.addNewCart(RoverLand.getUser().getId());
 		assertEquals(targetNumberOfCartsAfter,RoverLand.getHmCart().size());
 	}
-	
-	@Test
+
+	@org.junit.jupiter.api.RepeatedTest(10)
 	@DisplayName("Add a new article to the cart of the current user")
-	public void testAddToCart() {
+	public void test2() {
 		int targetNumberOfArticlesInCart = RoverLand.getHmCart().get(RoverLand.getUser().getId()).getArticleList().size() + 1;
-		RoverLand.addArticle(new Article("linkTest","titleTest", "descTest", "priceTest"));
+		RoverLand.getHmCart().get(RoverLand.getUser().getId()).getArticleList().add(new Article("linkTest","titleTest", "descTest", "priceTest"));
 		assertEquals(targetNumberOfArticlesInCart,RoverLand.getHmCart().get(RoverLand.getUser().getId()).getArticleList().size());
 	}
 	
-	@Test
+	@org.junit.jupiter.api.Test
 	@DisplayName("Delete an article from the cart of the current user")
-	public void testDelFromCart() {
-		int targetNumberOfArticlesInCart = RoverLand.getHmCart().get(RoverLand.getUser().getId()).getArticleList().size() + 1;
+	public void test3() {
+		RoverLand.getHmCart().get(RoverLand.getUser().getId()).getArticleList().add(article1);
+		int targetNumberOfArticlesInCart = RoverLand.getHmCart().get(RoverLand.getUser().getId()).getArticleList().size() - 1;
+		System.out.println("List : "+RoverLand.getHmCart().get(RoverLand.getUser().getId()).getArticleList());
 		RoverLand.getHmCart().get(RoverLand.getUser().getId()).delArticle(article1);
 		assertEquals(targetNumberOfArticlesInCart,RoverLand.getHmCart().get(RoverLand.getUser().getId()).getArticleList().size());
 		assertTrue(!RoverLand.getHmCart().get(RoverLand.getUser().getId()).getArticleList().contains(article1));
 	}
-
 }
+
