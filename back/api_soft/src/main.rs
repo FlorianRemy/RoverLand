@@ -314,9 +314,7 @@ fn delete_item_in_cart(reference: RefItemCart) -> Result<(), std::io::Error> {
                 };
 
                 if (reference.id_user != id_user) || (reference.id_article != id_article) {
-                    println!("id_user {}, id_article{}, ref id_user{}, ref id_article{}", id_user, id_article, reference.id_user, reference.id_article);
                     string_to_write = format!("{}{}\n", string_to_write, l);
-                    //append_into_cart_list(&l)?;
                 }
             },
             Err(e) => return Err(e),
