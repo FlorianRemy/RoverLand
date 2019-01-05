@@ -1,28 +1,25 @@
 package application;
 
-import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class Cart {
-	private ArrayList<Article> articleList; 
+	private ObservableList<Article> articleList; 
 	private double totalPrice;
 	
 	public Cart() {
-		this.articleList = new ArrayList<Article>();
-	}
-	
-	public void addArticle(Article articleToAdd) {
-		articleList.add(articleToAdd);
+		this.articleList = FXCollections.observableArrayList();
 	}
 	
 	public void delArticle(Article articleToDel) {
 		articleList.remove(articleToDel);
 	}
 
-	public ArrayList<Article> getArticleList() {
+	public ObservableList<Article> getArticleList() {
 		return articleList;
 	}
 
-	public void setArticleList(ArrayList<Article> articleList) {
+	public void setArticleList(ObservableList<Article> articleList) {
 		this.articleList = articleList;
 	}
 

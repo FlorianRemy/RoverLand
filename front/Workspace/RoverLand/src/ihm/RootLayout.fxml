@@ -5,7 +5,7 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.RootLayoutController">
+<BorderPane prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ihm.RootLayoutController">
    <top>
       <MenuBar prefHeight="26.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <menus>
@@ -17,7 +17,7 @@
             </Menu>
             <Menu mnemonicParsing="false" text="🗙 Quitter">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#handleExit" text="🗙 Arrêter SVDTS" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleExit" text="🗙 Quitter RoverLand" />
                </items>
             </Menu>
          </menus>

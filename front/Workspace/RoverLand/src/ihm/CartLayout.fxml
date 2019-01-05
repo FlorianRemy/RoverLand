@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.CartLayoutController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ihm.CartLayoutController">
    <children>
-      <ImageView fx:id="delArticleButton" fitHeight="69.0" fitWidth="61.0" layoutX="482.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="delArticleButton" fitHeight="69.0" fitWidth="61.0" layoutX="482.0" layoutY="62.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../ressources/x-button.png" />
          </image>
@@ -20,7 +20,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </ImageView>
-      <TableView fx:id="cartContent" layoutX="13.0" layoutY="12.0" prefHeight="378.0" prefWidth="415.0">
+      <TableView fx:id="cartContent" layoutX="13.0" layoutY="60.0" prefHeight="378.0" prefWidth="415.0">
         <columns>
           <TableColumn fx:id="titleArticleInCart" prefWidth="75.0" text="Titre" />
           <TableColumn fx:id="descriptionArticleInCart" prefWidth="75.0" text="Description" />
@@ -31,11 +31,11 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Label layoutX="472.0" layoutY="324.0" text="Total : ">
+      <Label layoutX="472.0" layoutY="372.0" text="Total : ">
          <font>
             <Font size="27.0" />
          </font>
       </Label>
-      <TextField fx:id="totalPrice" editable="false" layoutX="433.0" layoutY="364.0" prefHeight="26.0" prefWidth="160.0" />
+      <TextField fx:id="totalPrice" editable="false" layoutX="433.0" layoutY="412.0" prefHeight="26.0" prefWidth="160.0" />
    </children>
 </AnchorPane>
