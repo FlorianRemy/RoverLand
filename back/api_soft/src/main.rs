@@ -51,11 +51,16 @@ struct RefItemCart {
     id_user: u32,
 }
 
-#[post("/addToCart", format = "json", data = "<message>")]
-fn add_to_cart(message: Json<RefItemCart>) {
+#[get("/getCart/<id>")]
+fn get_cart( id: u32 ) -> Json<ListElement> {
+    let mut liste: ListElement = ListElement::new();
 
+    let element: Element = Element::new(12, "Rover 75".to_string(), "TBE, prix ferme".to_string(), 1500);
+
+    liste.elements.push(element);
+
+    Json( liste )
 }
-
 
 #[get("/getList")]
 fn get_list() -> Json<ListElement> {
@@ -69,9 +74,28 @@ fn get_list() -> Json<ListElement> {
     Json( liste )
 }
 
+#[get("/getCartAmount/<id>")]
+fn get_cart_amount( id: u32 ) -> JsonValue {
+    let montant: u32 = 40000;
+
+    json!({
+        "amount": montant
+    })
+}
+
+#[post("/addToCart", format = "json", data = "<message>")]
+fn add_to_cart(message: Json<RefItemCart>) {
+    let transation: RefItemCart = RefItemCart {
+        id_article: message.id_article,
+        id_user: message.id_user,
+    };
+
+    println!("id article {}, id_user {}", transation.id_article, transation.id_user);
+}
+
 fn main() {
     println!("Hello, world!");
 
-    rocket::ignite().mount("/", routes![get_list]).launch();
+    rocket::ignite().mount("/", routes![get_list, get_cart, get_cart_amount, add_to_cart]).launch();
 
 }
