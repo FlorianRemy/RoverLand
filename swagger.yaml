@@ -79,7 +79,7 @@ paths:
             $ref: '#/definitions/ElementList'
         '404':
           description: Not found (NOK)
-  /deleteAnnouncement:
+  /deleteCartItem:
     delete:
       tags:
         - Panier
@@ -126,6 +126,12 @@ paths:
         '400':
           description: Unsuccessful (NOK)
 definitions:
+  ErrorMessage:
+    type: object
+    properties:
+      error:
+        type: integer
+        format: int32
   ElementList:
     type: object
     properties:
