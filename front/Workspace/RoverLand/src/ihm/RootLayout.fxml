@@ -5,14 +5,14 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ihm.RootLayoutController">
+<BorderPane prefHeight="550.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ihm.RootLayoutController">
    <top>
       <MenuBar prefHeight="26.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <menus>
             <Menu mnemonicParsing="false" text="🏠 Menu">
                <items>
-                  <MenuItem fx:id="menuItemMainPage" mnemonicParsing="false" onAction="#handleInit" text="📄 Page principale" />
-                  <MenuItem fx:id="menuItemPreviousPage" mnemonicParsing="false" onAction="#handlePreviousPage" text="⎗ Page précédente" />
+                  <MenuItem fx:id="menuItemMainPage" mnemonicParsing="false" onAction="#handleInit" text="Authentification" />
+                  <MenuItem fx:id="menuItemPreviousPage" mnemonicParsing="false" onAction="#handlePreviousPage" text="Annonces" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="🗙 Quitter">

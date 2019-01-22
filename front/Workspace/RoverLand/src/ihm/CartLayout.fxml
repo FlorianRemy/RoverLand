@@ -11,11 +11,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ihm.CartLayoutController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ihm.CartLayoutController">
    <children>
       <ImageView fx:id="delArticleButton" fitHeight="69.0" fitWidth="61.0" layoutX="482.0" layoutY="110.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../ressources/x-button.png" />
+            <Image url="@../ressources/x-button.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -44,7 +44,7 @@
       </Label>
       <ImageView fitHeight="49.0" fitWidth="142.0" layoutX="304.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../ressources/rover-75.png" />
+            <Image url="@../ressources/rover-75.png" />
          </image>
       </ImageView>
       <Button fx:id="valid" disable="true" layoutX="433.0" layoutY="459.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="160.0" text="VALIDER !" />

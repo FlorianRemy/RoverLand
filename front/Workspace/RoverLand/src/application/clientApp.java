@@ -7,8 +7,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Arrays;
 
-import javax.net.ssl.HttpsURLConnection;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -34,8 +32,6 @@ public class ClientApp {
 		articlesString = articlesString.replace("{","");
 		articlesString = articlesString.replace("}","");
 		String[] articlesArray = articlesString.split("//");
-		
-		System.out.println(Arrays.toString(articlesArray));
 		
 		for(String article:articlesArray) {
 			String[] articleFields = article.split(",");
@@ -157,8 +153,6 @@ public class ClientApp {
 	public String sendGet(String url) throws Exception {
 		URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-		
-		System.out.println("Test : "+con.getURL());
 
 		// optional default is GET
 		con.setRequestMethod("GET");
