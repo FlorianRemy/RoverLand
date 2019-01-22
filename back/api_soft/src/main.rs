@@ -4,17 +4,14 @@
 #[macro_use] extern crate rocket_contrib;
 #[macro_use] extern crate serde_derive;
 
-
-//use rocket::State;
 use rocket_contrib::json::{Json, JsonValue};
-//use std::fs::OpenOptions;
 use std::error::Error;
 use std::io;
 use std::io::ErrorKind;
 use std::io::prelude::*;
-//use std::path::Path;
 use std::collections::HashMap;
 use std::io::{BufRead, BufReader};
+use rocket::http::Status;
 
 #[derive(Serialize, Deserialize)]
 struct Element {
@@ -69,42 +66,48 @@ struct RefItemCart {
 }
 
 #[get("/getCart/<id>")]
-fn get_cart( id: u32 ) -> Json<ListElement> {
+fn get_cart( id: u32 ) -> Result<Json<ListElement>, Status>{
     let mut liste: ListElement = ListElement::new();
 
     liste.elements = match get_cart_by_id(id) {
         Ok(l) => l,
-        Err(e) => panic!("{:?}", e),
+        Err(e) => {
+            return Err(Status::BadRequest);
+        }
     };
 
-    Json( liste )
+    Ok( Json( liste ) )
 }
 
 #[get("/getList")]
-fn get_list() -> Json<ListElement> {
+fn get_list() -> Result<Json<ListElement>, Status> {
     let mut liste: ListElement = ListElement::new();
     liste.elements = match parse_item_from_announce_list() {
         Ok(l) => l,
-        Err(e) => panic!("{:?}", e),
+        Err(e) => {
+            return Err( Status::NotFound );
+        }
     };
 
-    Json( liste )
+    Ok( Json( liste ) )
 }
 
 #[get("/getCartAmount/<id>")]
-fn get_cart_amount( id: u32 ) -> JsonValue {
+fn get_cart_amount( id: u32 ) -> Result<JsonValue, Status> {
     let montant: u32 = match get_cart_amount_by_id(id) {
         Ok(value) => value,
-        Err(e) => panic!("{:?}", e)
+        Err(e) => {
+            return Err( Status::BadRequest );
+        }
     };
 
-    json!({
+    Ok ( json!({
         "amount": montant
-    })
+    }) )
 }
 
 #[post("/addToCart", format = "json", data = "<message>")]
-fn add_to_cart(message: Json<RefItemCart>) {
+fn add_to_cart(message: Json<RefItemCart>) -> Option<Status> {
     let transation: RefItemCart = RefItemCart {
         id_article: message.id_article,
         id_user: message.id_user,
@@ -112,12 +115,16 @@ fn add_to_cart(message: Json<RefItemCart>) {
 
     match add_item_to_cart(transation) {
         Ok(_) => (),
-        Err(e) => println!("{}", e),
+        Err(e) => {
+            return Some( Status::BadRequest );
+        }
     }
+
+    Some( Status::Accepted )
 }
 
 #[delete("/deleteAnnouncement", format = "json", data = "<message>")]
-fn delete_announcement(message: Json<RefItemCart>) {
+fn delete_announcement(message: Json<RefItemCart>) -> Option<Status> {
     let deletion: RefItemCart = RefItemCart {
         id_article: message.id_article,
         id_user: message.id_user,
@@ -125,8 +132,12 @@ fn delete_announcement(message: Json<RefItemCart>) {
 
     match delete_item_in_cart(deletion) {
         Ok(_) => (),
-        Err(e) => panic!("{:?}", e),
+        Err(e) => {
+            return Some( Status::BadRequest );
+        }
     }
+
+    Some( Status::Accepted )
 }
 
 fn main() {
@@ -181,12 +192,20 @@ fn parse_item_from_announce_list() -> Result<Vec<Element>, std::io::Error> {
             let item_field: Vec<&str> = item.split(':').collect();
             
             if item_field.len() == 4 {
+
+                for i in &item_field {
+                    println!("{}", i);
+                }
+
                 let id_article: u32 = match item_field[0].parse() {
                     Ok(value) => value,
                     Err(e) => return Err(std::io::Error::new(std::io::ErrorKind::Other, e.description())),
                 };
+
                 let nom: String = item_field[1].to_string();
+
                 let description: String = item_field[2].to_string();
+
                 let prix: u32 = match item_field[3].parse() {
                     Ok(value) => value,
                     Err(e) => return Err(std::io::Error::new(std::io::ErrorKind::Other, e.description())),
