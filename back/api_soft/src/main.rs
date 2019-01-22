@@ -113,6 +113,8 @@ fn add_to_cart(message: Json<RefItemCart>) -> Option<Status> {
         id_user: message.id_user,
     };
 
+    println!("id_article: {}, id_user: {}", transation.id_article, transation.id_user );
+
     match add_item_to_cart(transation) {
         Ok(_) => (),
         Err(e) => {
@@ -280,8 +282,11 @@ fn get_item_by_id(id: u32) -> Result<Element, &'static str> {
         Err(_) => return Err( "error parsing file" ),
     };
 
+    println!("id {}", id);
+
     for elem in vec.iter() {
         if elem.id == id {
+        	println!("elem id: {}", elem.id);
             return Ok(elem.clone());
         }
     }

@@ -12,8 +12,6 @@ public class MainLayoutController {
 	@FXML
 	private TableView<Article> articleList;
 	@FXML
-	private TableColumn<Article, ImageView> articlePicture;
-	@FXML
 	private TableColumn<Article, String> articleTitle;
 	@FXML
 	private TableColumn<Article, String> articleDescription;
@@ -26,11 +24,12 @@ public class MainLayoutController {
 	
 	private Main mainApp;
 	
+	private ClientApp clientApp;
+	
 	private Site site;
 	
 	@FXML
     private void initialize() {
-		//articlePicture.setCellValueFactory(cellData -> new ImageView(cellData.getValue().getArticleImgFile()));
 		articleTitle.setCellValueFactory(cellData -> cellData.getValue().getArticleName());
 		articleDescription.setCellValueFactory(cellData -> cellData.getValue().getArticleDescription());
 		articlePrice.setCellValueFactory(cellData -> cellData.getValue().getArticlePrice());
@@ -40,7 +39,8 @@ public class MainLayoutController {
 			public void handle(MouseEvent arg0) {
 				Article selectedArticle = articleList.getSelectionModel().getSelectedItem();
 				if(selectedArticle != null) {
-					site.getHmCart().get(site.getUser().getId()).getArticleList().add(selectedArticle);
+					clientApp.addToCart(site.getUser().getId(), selectedArticle.getArticleID());
+					//site.getHmCart().get(site.getUser().getId()).getArticleList().add(selectedArticle);
 				} 
 			}
 		});
@@ -57,6 +57,10 @@ public class MainLayoutController {
         this.mainApp = mainApp;
         articleList.setItems(site.getArticleList());
     }
+	
+	public void setClientApp(ClientApp clientApp) {
+		this.clientApp = clientApp;
+	}
 	
 	public void setSite(Site site) {
 		this.site = site;
