@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 123:2:Rover 3:Belle voiture 3:200
 456:2:Rover 3:Belle voiture 3:200
 1234:3:Rover 7:Belle voiture 4:10000
@@ -18,3 +19,14 @@
 1234:3:Rover 7:Belle voiture 4:10000
 1234:3:Rover 7:Belle voiture 4:10000
 1234:3:Rover 7:Belle voiture 4:10000
+=======
+<<<<<<< HEAD
+-1:-1:-1:-1:-1
+7:0:Rover75:Etat impec:1000
+21:1:Rover:tres bel etat:1200
+123:1:Rover:tres bel etat:1200
+=======
+1234:0:RoverTest:Bonjour pas mal:1200
+1234:1:RoverTest:Bonjour pas mal:1200
+>>>>>>> ef74b9e917d10525436a890492edfe92a475720f
+>>>>>>> dev
