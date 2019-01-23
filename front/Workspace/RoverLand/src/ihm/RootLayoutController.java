@@ -14,17 +14,16 @@ public class RootLayoutController {
 	
 	@FXML
     private void initialize() {
-		//mainApp.showCartLayout();
 	}
 	
 	@FXML
-	private void handleInit() {
-		//mainApp.showCartLayout();
+	private void handleIDLayout() {
+		mainApp.showIdLayout();
     }
 	
 	@FXML
-    private void handlePreviousPage() {
-		
+    private void handleMainLayout() {
+		mainApp.showMainLayout();
     }
 	
 	@FXML

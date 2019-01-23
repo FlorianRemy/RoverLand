@@ -44,10 +44,10 @@ public class ClientApp {
 					newArticle.setArticleID(Integer.valueOf(tempTab[1]));
 				}
 				else if(tempTab[0].equals("\"nom\"")) {
-					newArticle.setArticleName(tempTab[1]);
+					newArticle.setArticleName(tempTab[1].replace("\"", ""));
 				}
 				else if(tempTab[0].equals("\"description\"")) {
-					newArticle.setArticleDescription(tempTab[1]);
+					newArticle.setArticleDescription(tempTab[1].replace("\"", ""));
 				}
 				else if(tempTab[0].equals("\"prix\"")) {
 					newArticle.setArticlePrice(tempTab[1] + " €");
@@ -105,10 +105,10 @@ public class ClientApp {
 					newArticle.setArticleID(Integer.valueOf(tempTab[1]));
 				}
 				else if(tempTab[0].equals("\"nom\"")) {
-					newArticle.setArticleName(tempTab[1]);
+					newArticle.setArticleName(tempTab[1].replace("\"", ""));
 				}
 				else if(tempTab[0].equals("\"description\"")) {
-					newArticle.setArticleDescription(tempTab[1]);
+					newArticle.setArticleDescription(tempTab[1].replace("\"", ""));
 				}
 				else if(tempTab[0].equals("\"prix\"")) {
 					newArticle.setArticlePrice(tempTab[1] + " €");

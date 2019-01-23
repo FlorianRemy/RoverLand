@@ -48,6 +48,7 @@ public class CartLayoutController {
 				if(selectedArticle != null) {
 					clientApp.deleteAnnouncement(site.getUser().getId(), selectedArticle.getArticleID());
 					site.getHmCart().get(site.getUser().getId()).setArticleList(clientApp.getCart(site.getUser().getId())); 
+			        cartContent.setItems(site.getHmCart().get(site.getUser().getId()).getArticleList());
 					totalPrice.setText(clientApp.getCartAmount(site.getUser().getId()));
 					//site.getHmCart().get(site.getUser().getId()).getArticleList().remove(selectedArticle);
 				} 
