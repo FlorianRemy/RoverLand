@@ -111,8 +111,6 @@ fn add_to_cart(message: Json<RefItemCart>) -> Option<Status> {
         id_user: message.id_user,
     };
 
-    println!("id_article: {}, id_user: {}", transation.id_article, transation.id_user );
-
     match add_item_to_cart(transation) {
         Ok(_) => (),
         Err(_e) => {
@@ -132,8 +130,8 @@ fn delete_announcement(message: Json<RefItemCart>) -> Option<Status> {
 
     match delete_item_in_cart(deletion) {
         Ok(_) => (),
-        Err(_e) => {
-            return Some( Status::BadRequest );
+        Err(e) => {
+           return Some( Status::BadRequest );
         }
     }
 
@@ -184,12 +182,13 @@ fn parse_item_from_announce_list() -> Result<Vec<Element>, std::io::Error> {
     
     let file_as_string = read_announce_list()?;
 
-    let splited_file = file_as_string.split('\n');
+    let splited_file = file_as_string.split(|c| c == '\n' || c == '\r');
 
     for item in splited_file {
         if item != "" {
 
-            let item_field: Vec<&str> = item.split(':').collect();
+            let item_trimmed = item.trim();
+            let item_field: Vec<&str> = item_trimmed.split(':').collect();
             
             if item_field.len() == 4 {
 
@@ -229,11 +228,14 @@ fn parse_item_from_cart_list() -> Result<HashMap<i32, Vec<Element>>, std::io::Er
 
     let file_as_string = read_cart_list()?;
 
-    let splited_file = file_as_string.split('\n');
+    let splited_file = file_as_string.split(|c| c == '\n' || c == '\r');
 
     for item in splited_file {
         if item != "" {
-            let item_field: Vec<&str> = item.split(':').collect();
+            let item_trimmed = item.trim();
+            let item_field: Vec<&str> = item_trimmed.split(':').collect();
+
+            println!("{}", item_field.len());
 
             if item_field.len() == 5 {
                 let id_user: i32 = match item_field[0].parse() {
@@ -251,6 +253,8 @@ fn parse_item_from_cart_list() -> Result<HashMap<i32, Vec<Element>>, std::io::Er
                     Ok(value) => value,
                     Err(e) => return Err(std::io::Error::new(std::io::ErrorKind::Other, e.description())),
                 };
+
+                println!("{}:{}:{}:{}:{}", id_user, id_article, nom, description, prix);
 
                 let element_temp: Element = Element::new(id_article
                                                         ,nom
@@ -289,7 +293,7 @@ fn get_item_by_id(id: i32) -> Result<Element, &'static str> {
 fn get_cart_by_id(id: i32) -> Result<Vec<Element>, &'static str> {
     let map: HashMap<i32, Vec<Element>> = match parse_item_from_cart_list() {
         Ok(map) => map,
-        Err(_e) => return Err( "error parsing file" ),
+        Err(e) => panic!( format!("error parsing file: {}", e.description()) )
     };
 
     if let Some(result) = map.get(&id) {
