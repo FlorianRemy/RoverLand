@@ -6,26 +6,24 @@
 
 use rocket_contrib::json::{Json, JsonValue};
 use std::error::Error;
-use std::io;
 use std::io::ErrorKind;
-use std::io::prelude::*;
 use std::collections::HashMap;
 use std::io::{BufRead, BufReader};
 use rocket::http::Status;
 
 #[derive(Serialize, Deserialize)]
 struct Element {
-     id         :   u32
+     id         :   i32
     ,nom        :   String
     ,description:   String
-    ,prix       :   u32 
+    ,prix       :   i32 
 }
 
 impl Element {
-    fn new ( id: u32
+    fn new ( id: i32
             ,nom: String
             ,description: String
-            ,prix: u32 ) -> Element
+            ,prix: i32 ) -> Element
     {
         Element {
             id: id,
@@ -61,18 +59,18 @@ impl ListElement {
 
 #[derive(Deserialize)]
 struct RefItemCart {
-    id_article: u32,
-    id_user: u32,
+    id_article: i32,
+    id_user: i32,
 }
 
 #[get("/getCart/<id>")]
-fn get_cart( id: u32 ) -> Result<Json<ListElement>, Status>{
+fn get_cart( id: i32 ) -> Result<Json<ListElement>, Status>{
     let mut liste: ListElement = ListElement::new();
 
     liste.elements = match get_cart_by_id(id) {
         Ok(l) => l,
-        Err(e) => {
-            return Err(Status::BadRequest);
+        Err(_e) => {
+            return Err( Status::BadRequest );
         }
     };
 
@@ -84,7 +82,7 @@ fn get_list() -> Result<Json<ListElement>, Status> {
     let mut liste: ListElement = ListElement::new();
     liste.elements = match parse_item_from_announce_list() {
         Ok(l) => l,
-        Err(e) => {
+        Err(_e) => {
             return Err( Status::NotFound );
         }
     };
@@ -93,10 +91,10 @@ fn get_list() -> Result<Json<ListElement>, Status> {
 }
 
 #[get("/getCartAmount/<id>")]
-fn get_cart_amount( id: u32 ) -> Result<JsonValue, Status> {
-    let montant: u32 = match get_cart_amount_by_id(id) {
+fn get_cart_amount( id: i32 ) -> Result<JsonValue, Status> {
+    let montant: i32 = match get_cart_amount_by_id(id) {
         Ok(value) => value,
-        Err(e) => {
+        Err(_e) => {
             return Err( Status::BadRequest );
         }
     };
@@ -113,9 +111,11 @@ fn add_to_cart(message: Json<RefItemCart>) -> Option<Status> {
         id_user: message.id_user,
     };
 
+    println!("id_article: {}, id_user: {}", transation.id_article, transation.id_user );
+
     match add_item_to_cart(transation) {
         Ok(_) => (),
-        Err(e) => {
+        Err(_e) => {
             return Some( Status::BadRequest );
         }
     }
@@ -132,7 +132,7 @@ fn delete_announcement(message: Json<RefItemCart>) -> Option<Status> {
 
     match delete_item_in_cart(deletion) {
         Ok(_) => (),
-        Err(e) => {
+        Err(_e) => {
             return Some( Status::BadRequest );
         }
     }
@@ -193,11 +193,7 @@ fn parse_item_from_announce_list() -> Result<Vec<Element>, std::io::Error> {
             
             if item_field.len() == 4 {
 
-                for i in &item_field {
-                    println!("{}", i);
-                }
-
-                let id_article: u32 = match item_field[0].parse() {
+                let id_article: i32 = match item_field[0].parse() {
                     Ok(value) => value,
                     Err(e) => return Err(std::io::Error::new(std::io::ErrorKind::Other, e.description())),
                 };
@@ -206,7 +202,7 @@ fn parse_item_from_announce_list() -> Result<Vec<Element>, std::io::Error> {
 
                 let description: String = item_field[2].to_string();
 
-                let prix: u32 = match item_field[3].parse() {
+                let prix: i32 = match item_field[3].parse() {
                     Ok(value) => value,
                     Err(e) => return Err(std::io::Error::new(std::io::ErrorKind::Other, e.description())),
                 };
@@ -228,8 +224,8 @@ fn parse_item_from_announce_list() -> Result<Vec<Element>, std::io::Error> {
     Ok(vec_temp)
 }
 
-fn parse_item_from_cart_list() -> Result<HashMap<u32, Vec<Element>>, std::io::Error> {
-    let mut map: HashMap<u32, Vec<Element>> = HashMap::new();
+fn parse_item_from_cart_list() -> Result<HashMap<i32, Vec<Element>>, std::io::Error> {
+    let mut map: HashMap<i32, Vec<Element>> = HashMap::new();
 
     let file_as_string = read_cart_list()?;
 
@@ -240,18 +236,18 @@ fn parse_item_from_cart_list() -> Result<HashMap<u32, Vec<Element>>, std::io::Er
             let item_field: Vec<&str> = item.split(':').collect();
 
             if item_field.len() == 5 {
-                let id_user: u32 = match item_field[0].parse() {
+                let id_user: i32 = match item_field[0].parse() {
                     Ok(value) => value,
                     Err(e) => return Err(std::io::Error::new(std::io::ErrorKind::Other, e.description())),
                 };
 
-                let id_article: u32 = match item_field[1].parse() {
+                let id_article: i32 = match item_field[1].parse() {
                     Ok(value) => value,
                     Err(e) => return Err(std::io::Error::new(std::io::ErrorKind::Other, e.description())),
                 };
                 let nom: String = item_field[2].to_string();
                 let description: String = item_field[3].to_string();
-                let prix: u32 = match item_field[4].parse() {
+                let prix: i32 = match item_field[4].parse() {
                     Ok(value) => value,
                     Err(e) => return Err(std::io::Error::new(std::io::ErrorKind::Other, e.description())),
                 };
@@ -274,13 +270,14 @@ fn parse_item_from_cart_list() -> Result<HashMap<u32, Vec<Element>>, std::io::Er
     Ok(map)
 }
 
-fn get_item_by_id(id: u32) -> Result<Element, &'static str> {
+fn get_item_by_id(id: i32) -> Result<Element, &'static str> {
     let vec = match parse_item_from_announce_list() {
         Ok(vec) => vec,
         Err(_) => return Err( "error parsing file" ),
     };
 
     for elem in vec.iter() {
+        
         if elem.id == id {
             return Ok(elem.clone());
         }
@@ -289,22 +286,22 @@ fn get_item_by_id(id: u32) -> Result<Element, &'static str> {
     Err( "id not found" )
 }
 
-fn get_cart_by_id(id: u32) -> Result<Vec<Element>, &'static str> {
-    let map: HashMap<u32, Vec<Element>> = match parse_item_from_cart_list() {
+fn get_cart_by_id(id: i32) -> Result<Vec<Element>, &'static str> {
+    let map: HashMap<i32, Vec<Element>> = match parse_item_from_cart_list() {
         Ok(map) => map,
-        Err(e) => return Err( "error parsing file" ),
+        Err(_e) => return Err( "error parsing file" ),
     };
 
     if let Some(result) = map.get(&id) {
         Ok(result.to_vec())
     } else {
-        Err("no user with this id or internal problem")
+        Ok( Vec::new() )
     }
 }
 
-fn get_cart_amount_by_id(id: u32) -> Result<u32, &'static str> {
+fn get_cart_amount_by_id(id: i32) -> Result<i32, &'static str> {
     let vec = get_cart_by_id(id)?;
-    let mut amount: u32 = 0;
+    let mut amount: i32 = 0;
 
     for elem in vec.iter() {
         amount += elem.prix;
@@ -322,12 +319,12 @@ fn delete_item_in_cart(reference: RefItemCart) -> Result<(), std::io::Error> {
             Ok(l) => {
                 let item_field: Vec<&str> = l.split(':').collect();
 
-                let id_user: u32 = match item_field[0].parse() {
+                let id_user: i32 = match item_field[0].parse() {
                     Ok(value) => value,
                     Err(e) => return Err(std::io::Error::new(std::io::ErrorKind::Other, e.description())),
                 };
 
-                let id_article: u32 = match item_field[1].parse() {
+                let id_article: i32 = match item_field[1].parse() {
                     Ok(value) => value,
                     Err(e) => return Err(std::io::Error::new(std::io::ErrorKind::Other, e.description())),
                 };
