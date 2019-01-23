@@ -9,14 +9,15 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
-
+/**
+ * Classe Main : Classe principale
+ * @author karim
+ */
 public class Main extends Application {
-	
-	/**primaryStage : conteneur principal*/
+	/** primaryStage : Conteneur principal */
 	private Stage primaryStage;
-	/**rootLayout : layout principal contenant les onglets principaux*/
+	/** rootLayout : Layout principal contenant les onglets principaux */
 	private BorderPane rootLayout;
-	
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -69,7 +70,6 @@ public class Main extends Application {
 			rootLayout.setCenter(overview);
 			MainLayoutController controller = loader.getController();
 			controller.setSite(App.getSite());
-			controller.setClientApp(App.getClientApp());
 			controller.setMainApp(this);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -84,8 +84,7 @@ public class Main extends Application {
 			rootLayout.setCenter(overview);
 			CartLayoutController controller = loader.getController();
 			controller.setSite(App.getSite());
-			controller.setClientApp(App.getClientApp());
-			controller.setMainApp(this);
+			controller.setItems();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

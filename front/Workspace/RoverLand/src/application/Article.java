@@ -2,10 +2,18 @@ package application;
 
 import javafx.beans.property.*;
 
+/**
+ * Classe Article : Classe qui definit un article
+ * @author karim
+ */
 public class Article {
+	/** articleID : Identifiant de l'article */
 	private int articleID;
+	/** articleName : Nom de l'article*/
 	private StringProperty articleName;
+	/** articleDescription : Description de l'article*/
 	private StringProperty articleDescription;
+	/** articlePrice : Prix de l'article*/
 	private StringProperty articlePrice;
 	
 	public Article() {

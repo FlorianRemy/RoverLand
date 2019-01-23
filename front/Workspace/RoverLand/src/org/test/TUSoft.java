@@ -16,6 +16,7 @@ import javafx.collections.ObservableList;
 
 @FixMethodOrder(MethodSorters.DEFAULT)
 class TUSoft {
+	// Variables de tests
 	static Site roverLand;
 	static ObservableList<Article> testArticleList;
 	
@@ -31,9 +32,9 @@ class TUSoft {
 		
 		testArticleList = FXCollections.observableArrayList();
 		
-		article1 = new Article("La belle Rover 75 n°1", "Belle auto, gros moteur", "3420");
-		article2 = new Article("La belle Rover 75 n°2 " ,"Très puissante", "100000");
-		article3 = new Article("SuperClio", "C'est une clio, on sait pas ce qu'elle fout là", "5€");
+		article1 = new Article("La belle Rover 75 n1", "Belle auto, gros moteur", "3420");
+		article2 = new Article("La belle Rover 75 n2 " ,"Très puissante", "100000");
+		article3 = new Article("SuperClio", "C'est une clio, on sait pas ce qu'elle fait la", "5");
 		
 		testArticleList.add(article1);
 		testArticleList.add(article2);

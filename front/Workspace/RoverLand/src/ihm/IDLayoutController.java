@@ -10,6 +10,10 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.TextField;
 
+/**
+ * Classe IDLayoutController : Controlleur de la vue Authentification
+ * @author karim
+ */
 public class IDLayoutController {
 	@FXML
 	private TextField userId;
@@ -25,6 +29,7 @@ public class IDLayoutController {
 	@FXML
     private void initialize() {
 
+		// Evenement "valider la saisie" (authentification)
 		valid.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent arg0) {
@@ -57,7 +62,6 @@ public class IDLayoutController {
 						userPassword.pseudoClassStateChanged(errorClass, false);
 					}
 				}
-				
 			}
 		});
 	}

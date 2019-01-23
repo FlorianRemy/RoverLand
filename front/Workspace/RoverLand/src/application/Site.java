@@ -4,9 +4,16 @@ import java.util.HashMap;
 import java.util.Map;
 import javafx.collections.ObservableList;
 
+/**
+ * Classe Site : Instance du site
+ * @author karim
+ */
 public class Site {
+	/** articleList : Liste des annonces */
 	private ObservableList<Article> articleList;
+	/** hmCart : Liste des paniers associes aux utilisateurs */
 	private Map<Integer, Cart> hmCart;
+	/* user : Reference vers l'utilisateur courant */
 	private User user;
 	
 	public Site(ObservableList<Article> articleList) {
