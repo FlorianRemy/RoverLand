@@ -1,6 +1,7 @@
 package ihm;
 
 import application.Article;
+import application.ClientApp;
 import application.Site;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -30,6 +31,8 @@ public class CartLayoutController {
 	
 	private Main mainApp;
 	
+	private ClientApp clientApp;
+	
 	private Site site;
 	
 	@FXML
@@ -43,7 +46,10 @@ public class CartLayoutController {
 			public void handle(MouseEvent arg0) {
 				Article selectedArticle = cartContent.getSelectionModel().getSelectedItem();
 				if(selectedArticle != null) {
-					site.getHmCart().get(site.getUser().getId()).getArticleList().remove(selectedArticle);
+					clientApp.deleteAnnouncement(site.getUser().getId(), selectedArticle.getArticleID());
+					site.getHmCart().get(site.getUser().getId()).setArticleList(clientApp.getCart(site.getUser().getId())); 
+					totalPrice.setText(clientApp.getCartAmount(site.getUser().getId()));
+					//site.getHmCart().get(site.getUser().getId()).getArticleList().remove(selectedArticle);
 				} 
 			}
 		});
@@ -51,8 +57,14 @@ public class CartLayoutController {
 	
 	public void setMainApp(Main mainApp) {
         this.mainApp = mainApp;
+        site.getHmCart().get(site.getUser().getId()).setArticleList(clientApp.getCart(site.getUser().getId())); 
         cartContent.setItems(site.getHmCart().get(site.getUser().getId()).getArticleList());
+        totalPrice.setText(clientApp.getCartAmount(site.getUser().getId()));
     }
+	
+	public void setClientApp(ClientApp clientApp) {
+		this.clientApp = clientApp;
+	}
 	
 	public void setSite(Site site) {
 		this.site = site;

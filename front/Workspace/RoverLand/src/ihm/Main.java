@@ -71,6 +71,7 @@ public class Main extends Application {
 			rootLayout.setCenter(Overview);
 			MainLayoutController controller = loader.getController();
 			controller.setSite(App.getSite());
+			controller.setClientApp(App.getClientApp());
 			controller.setMainApp(this);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -85,6 +86,7 @@ public class Main extends Application {
 			rootLayout.setCenter(Overview);
 			CartLayoutController controller = loader.getController();
 			controller.setSite(App.getSite());
+			controller.setClientApp(App.getClientApp());
 			controller.setMainApp(this);
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 0:Rover75:Etat impec:1000
 1:Rover:tres bel etat:1200
 8:Rover75:Etat impec:1000
 15:Rover:tres bel etat:1200
+=======
+0:RoverTest:Bonjour pas mal:1200
+1:RoverTest:Bonjour pas mal:1200
+>>>>>>> ef74b9e917d10525436a890492edfe92a475720f

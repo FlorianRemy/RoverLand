@@ -3,13 +3,18 @@ package application;
 import javafx.beans.property.*;
 
 public class Article {
-	private StringProperty articleImgFile;
+	private int articleID;
 	private StringProperty articleName;
 	private StringProperty articleDescription;
 	private StringProperty articlePrice;
 	
-	public Article(String articleImgFile, String articleName, String articleDescription, String articlePrice) {
-		this.articleImgFile = new SimpleStringProperty(articleImgFile);
+	public Article() {
+		this.articleName = new SimpleStringProperty("");
+		this.articleDescription = new SimpleStringProperty("");
+		this.articlePrice = new SimpleStringProperty("");
+	}
+	
+	public Article(String articleName, String articleDescription, String articlePrice) {
 		this.articleName = new SimpleStringProperty(articleName);
 		this.articleDescription = new SimpleStringProperty(articleDescription);
 		this.articlePrice = new SimpleStringProperty(articlePrice);
@@ -19,13 +24,13 @@ public class Article {
 		String temp = this.articleName + ":" + this.articleDescription + ":" + this.articlePrice;
 		return temp;
 	}
-
-	public StringProperty getArticleImgFile() {
-		return articleImgFile;
+	
+	public int getArticleID() {
+		return articleID;
 	}
 
-	public void setArticleImgFile(String articleImgFile) {
-		this.articleImgFile.set(articleImgFile);
+	public void setArticleID(int articleID) {
+		this.articleID = articleID;
 	}
 
 	public StringProperty getArticleName() {
