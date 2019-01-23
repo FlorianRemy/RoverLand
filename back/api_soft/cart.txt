@@ -1,2 +1,0 @@
-1234:0:RoverTest:Bonjour pas mal:1200
-1234:1:RoverTest:Bonjour pas mal:1200

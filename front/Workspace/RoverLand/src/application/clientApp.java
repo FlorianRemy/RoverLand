@@ -144,7 +144,11 @@ public class ClientApp {
 			e.printStackTrace();
 		}
 		
-		cartAmount = cartAmount.substring(cartAmount.indexOf("\"") + 1, cartAmount.indexOf("\"")) + " €";
+		System.out.println("cartAmount : "+cartAmount);
+		cartAmount = cartAmount.substring(cartAmount.indexOf("{") + 1, cartAmount.indexOf("}"));
+		String[] cartAmountField = cartAmount.split(":");
+		cartAmount = cartAmountField[1] + " €";
+		System.out.println("cartAmount : "+cartAmount);
 		return cartAmount;
 	}
 	

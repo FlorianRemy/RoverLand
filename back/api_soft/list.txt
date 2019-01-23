@@ -1,2 +1,4 @@
-0:RoverTest:Bonjour pas mal:1200
-1:RoverTest:Bonjour pas mal:1200
+0:Rover n°1:Belle voiture n°1:600
+1:Rover n°2:Belle voiture n°2:300
+2:Rover n°3:Belle voiture n°3:200
+3:Rover n°7:Belle voiture n°4:10000
