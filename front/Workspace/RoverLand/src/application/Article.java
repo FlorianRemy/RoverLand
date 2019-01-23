@@ -21,8 +21,7 @@ public class Article {
 	}
 	
 	public String toString() {
-		String temp = this.articleName + ":" + this.articleDescription + ":" + this.articlePrice;
-		return temp;
+		return this.articleName + ":" + this.articleDescription + ":" + this.articlePrice;
 	}
 	
 	public int getArticleID() {

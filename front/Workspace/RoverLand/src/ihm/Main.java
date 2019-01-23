@@ -1,8 +1,6 @@
 package ihm;
 	
 import java.io.IOException;
-
-import application.Site;
 import application.App;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -36,7 +34,7 @@ public class Main extends Application {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getResource("RootLayout.fxml"));
-			rootLayout = (BorderPane) loader.load();
+			rootLayout = loader.load();
 			Scene scene = new Scene(rootLayout);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
@@ -53,8 +51,8 @@ public class Main extends Application {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getResource("IDLayout.fxml"));
-			AnchorPane Overview = (AnchorPane) loader.load();
-			rootLayout.setCenter(Overview);
+			AnchorPane overview = loader.load();
+			rootLayout.setCenter(overview);
 			IDLayoutController controller = loader.getController();
 			controller.setSite(App.getSite());
 			controller.setMainApp(this);
@@ -67,8 +65,8 @@ public class Main extends Application {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getResource("MainLayout.fxml"));
-			AnchorPane Overview = (AnchorPane) loader.load();
-			rootLayout.setCenter(Overview);
+			AnchorPane overview = loader.load();
+			rootLayout.setCenter(overview);
 			MainLayoutController controller = loader.getController();
 			controller.setSite(App.getSite());
 			controller.setClientApp(App.getClientApp());
@@ -82,8 +80,8 @@ public class Main extends Application {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getResource("CartLayout.fxml"));
-			AnchorPane Overview = (AnchorPane) loader.load();
-			rootLayout.setCenter(Overview);
+			AnchorPane overview = loader.load();
+			rootLayout.setCenter(overview);
 			CartLayoutController controller = loader.getController();
 			controller.setSite(App.getSite());
 			controller.setClientApp(App.getClientApp());

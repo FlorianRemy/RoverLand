@@ -2,12 +2,9 @@ package ihm;
 
 import application.Site;
 import application.User;
-import javafx.collections.ObservableList;
 import javafx.css.PseudoClass;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.input.MouseEvent;
@@ -67,7 +64,7 @@ public class IDLayoutController {
 	
 	public static boolean isNumeric(String strNum) {
 	    try {
-	        double d = Double.parseDouble(strNum);
+	        Double.parseDouble(strNum);
 	    } catch (NumberFormatException | NullPointerException nfe) {
 	        return false;
 	    }

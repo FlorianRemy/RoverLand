@@ -1,4 +1,4 @@
-package TU;
+package org.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -16,7 +16,7 @@ import javafx.collections.ObservableList;
 
 @FixMethodOrder(MethodSorters.DEFAULT)
 class TUSoft {
-	static Site RoverLand;
+	static Site roverLand;
 	static ObservableList<Article> testArticleList;
 	
 	static Article article1;
@@ -41,35 +41,35 @@ class TUSoft {
 		
 		buyer = new User(1234);
 		
-		RoverLand = new Site(testArticleList);
-		RoverLand.setUser(buyer);
+		roverLand = new Site(testArticleList);
+		roverLand.setUser(buyer);
 	}
 	
 	@org.junit.jupiter.api.Test
 	@DisplayName("Add a new cart to the hashmap of the app")
 	public void test1() {
-		int targetNumberOfCartsAfter = RoverLand.getHmCart().size() + 1;
-		RoverLand.addNewCart(RoverLand.getUser().getId());
-		assertEquals(targetNumberOfCartsAfter,RoverLand.getHmCart().size());
+		int targetNumberOfCartsAfter = roverLand.getHmCart().size() + 1;
+		roverLand.addNewCart(roverLand.getUser().getId());
+		assertEquals(targetNumberOfCartsAfter,roverLand.getHmCart().size());
 	}
 
 	@org.junit.jupiter.api.RepeatedTest(10)
 	@DisplayName("Add a new article to the cart of the current user")
 	public void test2() {
-		int targetNumberOfArticlesInCart = RoverLand.getHmCart().get(RoverLand.getUser().getId()).getArticleList().size() + 1;
-		RoverLand.getHmCart().get(RoverLand.getUser().getId()).getArticleList().add(new Article("titleTest", "descTest", "priceTest"));
-		assertEquals(targetNumberOfArticlesInCart,RoverLand.getHmCart().get(RoverLand.getUser().getId()).getArticleList().size());
+		int targetNumberOfArticlesInCart = roverLand.getHmCart().get(roverLand.getUser().getId()).getArticleList().size() + 1;
+		roverLand.getHmCart().get(roverLand.getUser().getId()).getArticleList().add(new Article("titleTest", "descTest", "priceTest"));
+		assertEquals(targetNumberOfArticlesInCart,roverLand.getHmCart().get(roverLand.getUser().getId()).getArticleList().size());
 	}
 	
 	@org.junit.jupiter.api.Test
 	@DisplayName("Delete an article from the cart of the current user")
 	public void test3() {
-		RoverLand.getHmCart().get(RoverLand.getUser().getId()).getArticleList().add(article1);
-		int targetNumberOfArticlesInCart = RoverLand.getHmCart().get(RoverLand.getUser().getId()).getArticleList().size() - 1;
-		System.out.println("List : "+RoverLand.getHmCart().get(RoverLand.getUser().getId()).getArticleList());
-		RoverLand.getHmCart().get(RoverLand.getUser().getId()).delArticle(article1);
-		assertEquals(targetNumberOfArticlesInCart,RoverLand.getHmCart().get(RoverLand.getUser().getId()).getArticleList().size());
-		assertTrue(!RoverLand.getHmCart().get(RoverLand.getUser().getId()).getArticleList().contains(article1));
+		roverLand.getHmCart().get(roverLand.getUser().getId()).getArticleList().add(article1);
+		int targetNumberOfArticlesInCart = roverLand.getHmCart().get(roverLand.getUser().getId()).getArticleList().size() - 1;
+		System.out.println("List : "+roverLand.getHmCart().get(roverLand.getUser().getId()).getArticleList());
+		roverLand.getHmCart().get(roverLand.getUser().getId()).delArticle(article1);
+		assertEquals(targetNumberOfArticlesInCart,roverLand.getHmCart().get(roverLand.getUser().getId()).getArticleList().size());
+		assertTrue(!roverLand.getHmCart().get(roverLand.getUser().getId()).getArticleList().contains(article1));
 	}
 }
 

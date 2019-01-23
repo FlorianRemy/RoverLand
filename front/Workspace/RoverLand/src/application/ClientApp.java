@@ -5,14 +5,14 @@ import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Arrays;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class ClientApp {
 	
-	public ClientApp() {}
+	private static final String MSGEXCEPTIONBADREQUEST = "Bad Request (NOK)";
+	private static final String MSGEXCEPTIONNOTFOUND = "Not Found (NOK)";
+	private static final String MSGEXCEPTIONUNPROCESSABLE = "Unprocessable entity (NOK)";
 	
 	public ObservableList<Article> getList() {
 		ObservableList<Article> articleList;
@@ -27,7 +27,7 @@ public class ClientApp {
 			e.printStackTrace();
 		}
 
-		String articlesString = articleListRd.substring(articleListRd.indexOf("[") + 1, articleListRd.indexOf("]"));
+		String articlesString = articleListRd.substring(articleListRd.indexOf('[') + 1, articleListRd.indexOf(']'));
 		articlesString = articlesString.replace("},","}//");
 		articlesString = articlesString.replace("{","");
 		articlesString = articlesString.replace("}","");
@@ -55,14 +55,12 @@ public class ClientApp {
 			}
 			articleList.add(newArticle);
 		}
-		
-		System.out.println(articleList);
 		return articleList;
 	}
 	
-	public void addToCart(int id_user, int id_article){
+	public void addToCart(int idUser, int idArticle){
 		String url = "http://[::1]:8000/addToCart";
-		String urlParameters = "{"+"\"id_article\":"+String.valueOf(id_article)+","+"\"id_user\":"+String.valueOf(id_user)+"}";
+		String urlParameters = "{"+"\"id_article\":"+idArticle+","+"\"id_user\":"+idUser+"}";
 	
 		try {
 			sendPost(url, urlParameters);
@@ -86,13 +84,11 @@ public class ClientApp {
 			e.printStackTrace();
 		}
 
-		String articlesString = articleListFromCartRd.substring(articleListFromCartRd.indexOf("[") + 1, articleListFromCartRd.indexOf("]"));
+		String articlesString = articleListFromCartRd.substring(articleListFromCartRd.indexOf('[') + 1, articleListFromCartRd.indexOf(']'));
 		articlesString = articlesString.replace("},","}//");
 		articlesString = articlesString.replace("{","");
 		articlesString = articlesString.replace("}","");
 		String[] articlesArray = articlesString.split("//");
-		
-		System.out.println(Arrays.toString(articlesArray));
 		
 		for(String article:articlesArray) {
 			String[] articleFields = article.split(",");
@@ -116,13 +112,12 @@ public class ClientApp {
 			}
 			articleList.add(newArticle);
 		}
-		
 		return articleList;
 	}
 	
-	public void deleteAnnouncement(int id_user, int id_article) {
+	public void deleteAnnouncement(int idUser, int idArticle) {
 		String url = "http://[::1]:8000/deleteAnnouncement";
-		String urlParameters = "{"+"\"id_article\":"+String.valueOf(id_article)+","+"\"id_user\":"+String.valueOf(id_user)+"}";
+		String urlParameters = "{"+"\"id_article\":"+idArticle+","+"\"id_user\":"+idUser+"}";
 		
 		try {
 			sendDelete(url, urlParameters);
@@ -145,7 +140,7 @@ public class ClientApp {
 		}
 		
 		System.out.println("cartAmount : "+cartAmount);
-		cartAmount = cartAmount.substring(cartAmount.indexOf("{") + 1, cartAmount.indexOf("}"));
+		cartAmount = cartAmount.substring(cartAmount.indexOf('{') + 1, cartAmount.indexOf('}'));
 		String[] cartAmountField = cartAmount.split(":");
 		cartAmount = cartAmountField[1] + " €";
 		System.out.println("cartAmount : "+cartAmount);
@@ -161,25 +156,32 @@ public class ClientApp {
 		// optional default is GET
 		con.setRequestMethod("GET");
 
-		//add request header
-		//con.setRequestProperty("User-Agent", USER_AGENT);
-
 		int responseCode = con.getResponseCode();
 		System.out.println("\nSending 'GET' request to URL : " + url);
 		System.out.println("Response Code : " + responseCode);
+		
+		if(responseCode != 200) {
+			if(responseCode == 400) {
+				throw new Exception(MSGEXCEPTIONBADREQUEST);
+			}
+			else if(responseCode == 404) {
+				throw new Exception(MSGEXCEPTIONNOTFOUND);
+			}
+			else if(responseCode == 422) {
+				throw new Exception(MSGEXCEPTIONUNPROCESSABLE);
+			}
+		}
 
 		BufferedReader in = new BufferedReader(
 		        new InputStreamReader(con.getInputStream()));
 		String inputLine;
-		StringBuffer response = new StringBuffer();
+		StringBuilder response = new StringBuilder();
 
 		while ((inputLine = in.readLine()) != null) {
 			response.append(inputLine);
 		}
 		in.close();
 
-		//print result
-		//System.out.println(response.toString());
 		return response.toString();
 	}
 	
@@ -203,19 +205,29 @@ public class ClientApp {
 		System.out.println("\nSending 'POST' request to URL : " + url);
 		System.out.println("Post parameters : " + urlParameters);
 		System.out.println("Response Code : " + responseCode);
+		
+		if(responseCode != 200) {
+			if(responseCode == 400) {
+				throw new Exception(MSGEXCEPTIONBADREQUEST);
+			}
+			else if(responseCode == 404) {
+				throw new Exception(MSGEXCEPTIONNOTFOUND);
+			}
+			else if(responseCode == 422) {
+				throw new Exception(MSGEXCEPTIONUNPROCESSABLE);
+			}
+		}
 
 		BufferedReader in = new BufferedReader(
 		        new InputStreamReader(con.getInputStream()));
 		String inputLine;
-		StringBuffer response = new StringBuffer();
+		StringBuilder response = new StringBuilder();
 
 		while ((inputLine = in.readLine()) != null) {
 			response.append(inputLine);
 		}
 		in.close();
 		
-		//print result
-		System.out.println(response.toString());
 		return response.toString();
 	}
 	
@@ -239,19 +251,29 @@ public class ClientApp {
 		System.out.println("\nSending 'DELETE' request to URL : " + url);
 		System.out.println("Post parameters : " + urlParameters);
 		System.out.println("Response Code : " + responseCode);
+		
+		if(responseCode != 200) {
+			if(responseCode == 400) {
+				throw new Exception(MSGEXCEPTIONBADREQUEST);
+			}
+			else if(responseCode == 404) {
+				throw new Exception(MSGEXCEPTIONNOTFOUND);
+			}
+			else if(responseCode == 422) {
+				throw new Exception(MSGEXCEPTIONUNPROCESSABLE);
+			}
+		}
 
 		BufferedReader in = new BufferedReader(
 		        new InputStreamReader(con.getInputStream()));
 		String inputLine;
-		StringBuffer response = new StringBuffer();
+		StringBuilder response = new StringBuilder();
 
 		while ((inputLine = in.readLine()) != null) {
 			response.append(inputLine);
 		}
 		in.close();
 		
-		//print result
-		System.out.println(response.toString());
 		return response.toString();
 	}
 		
