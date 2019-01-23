@@ -79,7 +79,7 @@ paths:
             $ref: '#/definitions/ElementList'
         '404':
           description: Not found (NOK)
-  /deleteCartItem:
+  /deleteAnnouncement:
     delete:
       tags:
         - Panier
