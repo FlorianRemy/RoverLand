@@ -235,8 +235,6 @@ fn parse_item_from_cart_list() -> Result<HashMap<i32, Vec<Element>>, std::io::Er
             let item_trimmed = item.trim();
             let item_field: Vec<&str> = item_trimmed.split(':').collect();
 
-            println!("{}", item_field.len());
-
             if item_field.len() == 5 {
                 let id_user: i32 = match item_field[0].parse() {
                     Ok(value) => value,
@@ -253,8 +251,6 @@ fn parse_item_from_cart_list() -> Result<HashMap<i32, Vec<Element>>, std::io::Er
                     Ok(value) => value,
                     Err(e) => return Err(std::io::Error::new(std::io::ErrorKind::Other, e.description())),
                 };
-
-                println!("{}:{}:{}:{}:{}", id_user, id_article, nom, description, prix);
 
                 let element_temp: Element = Element::new(id_article
                                                         ,nom
