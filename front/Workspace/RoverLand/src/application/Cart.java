@@ -3,8 +3,14 @@ package application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+/**
+ * Classe Cart : Classe qui definit un panier
+ * @author karim
+ */
 public class Cart {
-	private ObservableList<Article> articleList; 
+	/** articleList : Liste des articles contenus dans le panier */
+	private ObservableList<Article> articleList;
+	/** totalPrice : Cout total du panier*/
 	private double totalPrice;
 	
 	public Cart() {

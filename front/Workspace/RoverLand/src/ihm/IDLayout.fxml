@@ -34,7 +34,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="userId" GridPane.columnIndex="1" />
+            <TextField fx:id="userId" promptText="1234" GridPane.columnIndex="1" />
             <PasswordField fx:id="userPassword" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label text="Mot de passe : " GridPane.rowIndex="1">
                <font>

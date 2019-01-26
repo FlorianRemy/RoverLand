@@ -11,8 +11,8 @@
          <menus>
             <Menu mnemonicParsing="false" text="🏠 Menu">
                <items>
-                  <MenuItem fx:id="menuItemMainPage" mnemonicParsing="false" onAction="#handleInit" text="Authentification" />
-                  <MenuItem fx:id="menuItemPreviousPage" mnemonicParsing="false" onAction="#handlePreviousPage" text="Annonces" />
+                  <MenuItem fx:id="menuItemMainPage" mnemonicParsing="false" onAction="#handleIDLayout" text="Authentification" />
+                  <MenuItem fx:id="menuItemPreviousPage" mnemonicParsing="false" onAction="#handleMainLayout" text="Annonces" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="🗙 Quitter">

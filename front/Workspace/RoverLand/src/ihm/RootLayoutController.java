@@ -4,6 +4,11 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 
+/**
+ * Classe RootLayoutController : Controller du layout Menu
+ * @author karim
+ *
+ */
 public class RootLayoutController {
 	@FXML
 	private MenuItem menuItemMainPage;
@@ -14,17 +19,17 @@ public class RootLayoutController {
 	
 	@FXML
     private void initialize() {
-		//mainApp.showCartLayout();
+		// Do nothing
 	}
 	
 	@FXML
-	private void handleInit() {
-		//mainApp.showCartLayout();
+	private void handleIDLayout() {
+		mainApp.showIdLayout();
     }
 	
 	@FXML
-    private void handlePreviousPage() {
-		
+    private void handleMainLayout() {
+		mainApp.showMainLayout();
     }
 	
 	@FXML

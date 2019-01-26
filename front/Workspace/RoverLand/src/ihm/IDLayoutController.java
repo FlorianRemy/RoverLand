@@ -2,17 +2,18 @@ package ihm;
 
 import application.Site;
 import application.User;
-import javafx.collections.ObservableList;
 import javafx.css.PseudoClass;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.TextField;
 
+/**
+ * Classe IDLayoutController : Controlleur de la vue Authentification
+ * @author karim
+ */
 public class IDLayoutController {
 	@FXML
 	private TextField userId;
@@ -28,6 +29,7 @@ public class IDLayoutController {
 	@FXML
     private void initialize() {
 
+		// Evenement "valider la saisie" (authentification)
 		valid.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent arg0) {
@@ -60,14 +62,13 @@ public class IDLayoutController {
 						userPassword.pseudoClassStateChanged(errorClass, false);
 					}
 				}
-				
 			}
 		});
 	}
 	
 	public static boolean isNumeric(String strNum) {
 	    try {
-	        double d = Double.parseDouble(strNum);
+	        Double.parseDouble(strNum);
 	    } catch (NumberFormatException | NullPointerException nfe) {
 	        return false;
 	    }

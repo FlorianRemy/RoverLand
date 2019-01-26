@@ -1,12 +1,13 @@
 package application;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
+/**
+ * Classe App : Instance de l'application
+ * @author karim
+ */
 public class App {
+	/** site : Reference vers l'instance du site */
 	private static Site site;
 	//private static ObservableList<Article> testArticleList;
-	private static ClientApp clientApp; 
 	
 	public App(){
 		//testArticleList = FXCollections.observableArrayList();
@@ -17,12 +18,14 @@ public class App {
 		testArticleList.add(new Article("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY0Rf6DOhVqOgSCic9aaG8qplUcwLeqnpq4MsRetUS8CVus_FVIg","SuperClio", "C'est une clio, on sait pas ce qu'elle fout là", "5€"));
 		testArticleList.add(new Article("http://lautoscope.fr/wp-content/uploads/2016/02/Rover75_malle.jpg","La belle Rover 75 n°3", "Importée du bled", "600"));
 		testArticleList.add(new Article("http://boitierrouge.com/wp-content/uploads/2016/03/75-02-1024x632.jpeg","La belle Rover 75 n°4", "Très rare", "2500"));*/
-		
-		clientApp = new ClientApp();
 	}
 	
+	/**
+	 * Main
+	 * @param args
+	 */
 	public static void main (String[] args){
-		site = new Site(clientApp.getList());
+		site = new Site(ClientApp.getList());
 	}
 	
 	public static Site getSite() {
@@ -32,14 +35,4 @@ public class App {
 	public static void setSite(Site site) {
 		App.site = site;
 	}
-
-	public static ClientApp getClientApp() {
-		return clientApp;
-	}
-
-	public static void setClientApp(ClientApp clientApp) {
-		App.clientApp = clientApp;
-	}
-	
-	
 }

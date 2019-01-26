@@ -11,10 +11,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
+/**
+ * Classe CartLayoutController : Controller de la vue Panier
+ * @author karim
+ */
 public class CartLayoutController {
 	@FXML
 	private TableView<Article>  cartContent;
-	
 	@FXML
 	private TableColumn<Article, String> titleArticleInCart;
 	@FXML
@@ -23,15 +26,10 @@ public class CartLayoutController {
 	private TableColumn<Article, String> quantityOfArticleInCart;
 	@FXML
 	private TableColumn<Article, String> priceOfArticleInCart;
-	
 	@FXML
 	private ImageView delArticleButton;
 	@FXML
 	private TextField totalPrice;
-	
-	private Main mainApp;
-	
-	private ClientApp clientApp;
 	
 	private Site site;
 	
@@ -41,30 +39,27 @@ public class CartLayoutController {
 		descriptionArticleInCart.setCellValueFactory(cellData -> cellData.getValue().getArticleDescription());
 		priceOfArticleInCart.setCellValueFactory(cellData -> cellData.getValue().getArticlePrice());
 		
+		// Evenement "suppression d'un article"
 		delArticleButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent arg0) {
 				Article selectedArticle = cartContent.getSelectionModel().getSelectedItem();
 				if(selectedArticle != null) {
-					clientApp.deleteAnnouncement(site.getUser().getId(), selectedArticle.getArticleID());
-					site.getHmCart().get(site.getUser().getId()).setArticleList(clientApp.getCart(site.getUser().getId())); 
-					totalPrice.setText(clientApp.getCartAmount(site.getUser().getId()));
+					ClientApp.deleteAnnouncement(site.getUser().getId(), selectedArticle.getArticleID());
+					site.getHmCart().get(site.getUser().getId()).setArticleList(ClientApp.getCart(site.getUser().getId())); 
+			        cartContent.setItems(site.getHmCart().get(site.getUser().getId()).getArticleList());
+					totalPrice.setText(ClientApp.getCartAmount(site.getUser().getId()));
 					//site.getHmCart().get(site.getUser().getId()).getArticleList().remove(selectedArticle);
 				} 
 			}
 		});
 	}
 	
-	public void setMainApp(Main mainApp) {
-        this.mainApp = mainApp;
-        site.getHmCart().get(site.getUser().getId()).setArticleList(clientApp.getCart(site.getUser().getId())); 
+	public void setItems() {
+        site.getHmCart().get(site.getUser().getId()).setArticleList(ClientApp.getCart(site.getUser().getId())); 
         cartContent.setItems(site.getHmCart().get(site.getUser().getId()).getArticleList());
-        totalPrice.setText(clientApp.getCartAmount(site.getUser().getId()));
+        totalPrice.setText(ClientApp.getCartAmount(site.getUser().getId()));
     }
-	
-	public void setClientApp(ClientApp clientApp) {
-		this.clientApp = clientApp;
-	}
 	
 	public void setSite(Site site) {
 		this.site = site;
