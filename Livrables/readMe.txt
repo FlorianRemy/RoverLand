@@ -5,20 +5,19 @@ Analyse :
 https://sonarcloud.io/dashboard?id=KEG01_RoverLand
 
 Machine virtuelle : 
+https://drive.google.com/open?id=1bPVjk_NGdy9Zo04GraRiRlur4aT6lOlG
 
+Pour exÃ©cuter le projet, rÃ©cupÃ©rer la machine virtuelle (Virtual box) hÃ©bergÃ©e sur google drive (lien ci-dessus).
+Lancer le serveur RUST et l'exÃ©cutable .jar correspondant Ã  l'application (test_et_securite_executable.jar)
 
-Pour exécuter le projet, récupérer la machine virtuelle (Virtual box) hébergée sur google drive (lien ci-dessus).
-Lancer le serveur RUST et l'exécutable .jar correspondant à l'application
+Remarque : Le fait d'utiliser l'application sous Debian dÃ©cale un peu les images. De plus, certains caractÃ¨res ne s'affichent pas correctement. Se fier aux captures pour les dÃ©tails de l'affichage.
 
-Remarque : Le fait d'utiliser l'application sous Debian décale un peu les images. De plus, certains caractères ne s'affichent pas correctement.
-Se fier aux captures pour les détails de l'affichage.
-
-Si nécessaire, il est possible d'installer l'application sur votre machine, pour cela : 
+Si nÃ©cessaire, il est possible d'installer l'application sur votre machine, pour cela : 
 - Installer RUST et lancer le serveur (cf Intructions dans le rapport)
-- Installer Java (JDK 9.0.1) présent dans les livrables 
-- Lancer eclipse (exécutable présent dans les livrables) et / ou récupérer le .jar
+- Installer Java (JDK 9.0.1) prÃ©sent dans le dossier "Logiciels" 
+- Lancer eclipse (exÃ©cutable prÃ©sent dans le dossier "Logiciels") et / ou rÃ©cupÃ©rer le .jar
 
-Tous les logiciels pour le "front" sont disponibles dans le répertoire Rendu_Tests_et_Sécurité_DII5_Karim_EL_GHARBI_Florian_REMY\Logiciels
+Tous les logiciels pour le "front" ainsi que la machine virtuelle sont hÃ©bergÃ©s sur google drive :
+https://drive.google.com/open?id=1bPVjk_NGdy9Zo04GraRiRlur4aT6lOlG
 
-Remarque : Si vous souhaitez effectuer les tests unitaires, il faudra probablement intégrer le .jar de Junit 5 dans le "build path".
-Celui-ci est également présent dans les livrables.
+Remarque : Si vous souhaitez effectuer les tests unitaires, il faudra probablement intÃ©grer le .jar de Junit 5 dans le "build path". Celui-ci est Ã©galement prÃ©sent dans le dossier "Logiciels".
