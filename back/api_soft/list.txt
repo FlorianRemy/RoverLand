@@ -1,0 +1,5 @@
+0:Rover 75 CDT:Etat neuf:5000
+1:Rover Faible kilometrage:Bonne mecanique:3400
+8:Tres belle Rover 75 Essence:Sans defaut:2499
+15:Rover ancienne:Corrosion perforante:150
+14:Rover 75 Break:Quelques frais:1350

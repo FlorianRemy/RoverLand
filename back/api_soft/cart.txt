@@ -1,0 +1,17 @@
+-1:-1:-1:-1:-1
+7:0:Rover75:Etat impec:1000
+21:1:Rover:tres bel etat:1200
+123:1:Rover:tres bel etat:1200
+123:0:Rover75:Etat impec:1000
+789:0:Rover75:Etat impec:1000
+789:15:Rover:tres bel etat:1200
+1234:15:Rover:tres bel etat:1200
+1234:1:Rover:tres bel etat:1200
+12356:1:Rover:tres bel etat:1200
+1478:15:Rover:tres bel etat:1200
+1478:0:Rover75:Etat impec:1000
+1478:0:Rover75:Etat impec:1000
+1478:0:Rover75:Etat impec:1000
+1478:0:Rover75:Etat impec:1000
+369:0:Rover 75 CDT:Etat neuf:5000
+369:15:Rover ancienne:Corrosion perforante:150
