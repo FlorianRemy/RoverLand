@@ -11,6 +11,10 @@ use std::collections::HashMap;
 use std::io::{BufRead, BufReader};
 use rocket::http::Status;
 
+
+/*** definition des structures de controle ***/
+
+/* structure element: represente un item achetable */
 #[derive(Serialize, Deserialize)]
 struct Element {
      id         :   i32
@@ -19,7 +23,9 @@ struct Element {
     ,prix       :   i32 
 }
 
+/* implementation des methodes pour la structure element */
 impl Element {
+
     fn new ( id: i32
             ,nom: String
             ,description: String
@@ -38,17 +44,20 @@ impl Element {
     }
 }
 
+/* surdefinition de la methode generique clone pour element */
 impl std::clone::Clone for Element {
     fn clone(&self) -> Element {
         Element::new(self.id, self.nom.clone(), self.description.clone(), self.prix)
     }
 }
 
+/* structure ListElement: represente une liste d'elements */
 #[derive(Serialize)]
 struct ListElement {
     elements: Vec<Element>
 }
 
+/* implementation des methodes pour ListElement */
 impl ListElement {
     fn new() -> ListElement {
         ListElement {
@@ -57,12 +66,20 @@ impl ListElement {
     }
 }
 
+/* structure RefItemCart: represente la jointure entre les item disponibles et un utilisateur */
 #[derive(Deserialize)]
 struct RefItemCart {
     id_article: i32,
     id_user: i32,
 }
 
+/*** fin des definition des structures de controle ***/
+
+/*** definition des handler pour les routes de l'API ***/
+
+/* get_cart: Handler pour la route /getCart/<id>
+ * renvoi la liste (listElement) des items dans le panier de l'utilisateur donne
+ */
 #[get("/getCart/<id>")]
 fn get_cart( id: i32 ) -> Result<Json<ListElement>, Status>{
     let mut liste: ListElement = ListElement::new();
@@ -77,6 +94,9 @@ fn get_cart( id: i32 ) -> Result<Json<ListElement>, Status>{
     Ok( Json( liste ) )
 }
 
+/* get_list: Handler pour la route /getList
+ * renvoi la liste (listElement) des annonces
+ */
 #[get("/getList")]
 fn get_list() -> Result<Json<ListElement>, Status> {
     let mut liste: ListElement = ListElement::new();
@@ -90,6 +110,9 @@ fn get_list() -> Result<Json<ListElement>, Status> {
     Ok( Json( liste ) )
 }
 
+/* get_cart_amount: Handler pour la route /getCartAmount/<id>
+ * renvoi un entier representant le montant du panier de l'utilisateur donne
+ */
 #[get("/getCartAmount/<id>")]
 fn get_cart_amount( id: i32 ) -> Result<JsonValue, Status> {
     let montant: i32 = match get_cart_amount_by_id(id) {
@@ -104,6 +127,9 @@ fn get_cart_amount( id: i32 ) -> Result<JsonValue, Status> {
     }) )
 }
 
+/* add_to_cart: Handler pour la route /addToCart
+ * se base sur une jointure (RefItemCart) pour ajouter l'item donne au panier de l'utilisateur donne
+ */
 #[post("/addToCart", format = "json", data = "<message>")]
 fn add_to_cart(message: Json<RefItemCart>) -> Option<Status> {
     let transation: RefItemCart = RefItemCart {
@@ -121,6 +147,10 @@ fn add_to_cart(message: Json<RefItemCart>) -> Option<Status> {
     Some( Status::Accepted )
 }
 
+/* delete_announcement: Handler pour la route /deleteAnnouncement
+ * se base sur une jointure (RefItemCart) pour supprimer toutes les instances
+ * d'un item donne dans le panier d'un utilisateur donne
+ **/
 #[delete("/deleteAnnouncement", format = "json", data = "<message>")]
 fn delete_announcement(message: Json<RefItemCart>) -> Option<Status> {
     let deletion: RefItemCart = RefItemCart {
@@ -138,10 +168,16 @@ fn delete_announcement(message: Json<RefItemCart>) -> Option<Status> {
     Some( Status::Accepted )
 }
 
+/*** fin des definitions des handlers pour les routes de l'API ***/
+
+/* main: fonction principale de l'application: monte les routes de l'API */
 fn main() {
     rocket::ignite().mount("/", routes![get_list, get_cart, get_cart_amount, add_to_cart, delete_announcement]).launch();
 }
 
+/* append_into_cart_list:
+ * ajoute la chaine de caractere en entree au fichier de panier
+ */
 fn append_into_cart_list(s: &str) -> std::io::Result<()> {
 
     let current_content = read_cart_list()?;
@@ -152,18 +188,24 @@ fn append_into_cart_list(s: &str) -> std::io::Result<()> {
     Ok(()) 
 }
 
+/* read_cart_list: fonction de lecture du fichier de panier */
 fn read_cart_list() -> Result<String, std::io::Error> {
     read_file("cart.txt")
 }
- 
+
+/* read_announce_list: fonction de lecture du fichier d'annonces */
 fn read_announce_list() -> Result<String, std::io::Error> {
     read_file("list.txt")
 }
 
+/* read_file: fonction de lecture d'un fichier quelconque */
 fn read_file(path: &str) -> Result<String, std::io::Error> {
     std::fs::read_to_string(path)
 }
 
+/* add_item_to_cart:
+ * ajoute un item donne dans un panier donne a partir de la jointure passee en entree
+ */
 fn add_item_to_cart(reference: RefItemCart) -> std::io::Result<()> {
     let article_to_add = match get_item_by_id(reference.id_article) {
         Ok(article) => article,
@@ -177,6 +219,9 @@ fn add_item_to_cart(reference: RefItemCart) -> std::io::Result<()> {
     append_into_cart_list(line_to_add.as_str())
 }
 
+/* parse_item_from_announce_list:
+ * lit le fichier d'annonce et le retourne sous forme d'un vecteur d'Element
+ */
 fn parse_item_from_announce_list() -> Result<Vec<Element>, std::io::Error> {
     let mut vec_temp: Vec<Element> = Vec::new();
     
@@ -223,6 +268,10 @@ fn parse_item_from_announce_list() -> Result<Vec<Element>, std::io::Error> {
     Ok(vec_temp)
 }
 
+/* parse_item_from_cart_list:
+ * lit le fichier de panier et renvoi une hashmap dont la cle est l'id de l'utilisateur
+ * et la valeur est une liste des items contenus dans le panier
+ */
 fn parse_item_from_cart_list() -> Result<HashMap<i32, Vec<Element>>, std::io::Error> {
     let mut map: HashMap<i32, Vec<Element>> = HashMap::new();
 
@@ -270,6 +319,9 @@ fn parse_item_from_cart_list() -> Result<HashMap<i32, Vec<Element>>, std::io::Er
     Ok(map)
 }
 
+/* get_item_by_id:
+ * recupere l'item correspondant a l'id passe en entree
+ */
 fn get_item_by_id(id: i32) -> Result<Element, &'static str> {
     let vec = match parse_item_from_announce_list() {
         Ok(vec) => vec,
@@ -286,6 +338,10 @@ fn get_item_by_id(id: i32) -> Result<Element, &'static str> {
     Err( "id not found" )
 }
 
+/* get_cart_by_id:
+ * recupere la liste des items contenus dans le panier de
+ * l'utilisateur dont l'id est passe en entree
+ */
 fn get_cart_by_id(id: i32) -> Result<Vec<Element>, &'static str> {
     let map: HashMap<i32, Vec<Element>> = match parse_item_from_cart_list() {
         Ok(map) => map,
@@ -299,6 +355,10 @@ fn get_cart_by_id(id: i32) -> Result<Vec<Element>, &'static str> {
     }
 }
 
+/* get_cart_amount_by_id:
+ * recupere le montant (entier) du panier de l'utilisateur
+ * dont l'id est passe en entree
+ */
 fn get_cart_amount_by_id(id: i32) -> Result<i32, &'static str> {
     let vec = get_cart_by_id(id)?;
     let mut amount: i32 = 0;
@@ -310,6 +370,11 @@ fn get_cart_amount_by_id(id: i32) -> Result<i32, &'static str> {
     Ok(amount)
 }
 
+/* delete_item_in_cart:
+ * supprime toutes les occurences d'un item donne
+ * dans un panier donne a partir de la jointure passee
+ * en entree
+ */
 fn delete_item_in_cart(reference: RefItemCart) -> Result<(), std::io::Error> {
     let file = std::fs::File::open("cart.txt")?;
     let mut string_to_write: String = String::new();
@@ -341,3 +406,4 @@ fn delete_item_in_cart(reference: RefItemCart) -> Result<(), std::io::Error> {
 
     Ok(())
 }
+
