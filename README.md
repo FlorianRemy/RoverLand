@@ -11,7 +11,7 @@ Pour se connecter à la machine virtuelle, les identifiants sont test: test. L'u
 
 Pour exécuter le projet, récupérer la machine virtuelle (Virtual box) hébergée sur google drive (lien ci-dessus).
 Pour importer la VM, il faut télécharger les fichiers présents sur le lien google drive dans le répertoire "VM". Lancer ensuite, le fichier Debian_test_et_secu.vbox avec Virtual Box.
-Lancer le serveur RUST (se déplacer dans le répertoire /home/test/Documents/RoverLand/back/api_soft puis executer la commande "cargo run") et l'exécutable .jar correspondant à l'application (test_et_securite_executable.jar) (le fichier est dans /home/test/Documents et la commande à utiliser est "java -jar test_et_securite_executable.jar" ).
+Sur la VM, lancer le serveur RUST (se déplacer dans le répertoire /home/test/Documents/RoverLand/back/api_soft puis executer la commande "cargo run") et l'exécutable .jar correspondant à l'application (test_et_securite_executable.jar) (le fichier est dans /home/test/Documents et la commande à utiliser est "java -jar test_et_securite_executable.jar" ).
 
 Remarque : Le fait d'utiliser l'application sous Debian décale un peu les images. De plus, certains caractères ne s'affichent pas correctement. Se fier aux captures pour les détails de l'affichage.
 
